@@ -5,13 +5,16 @@ Date: 22.05.2019
 */
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import pl.mplywacz.weatherapi.json.MeasurementDeserialization;
+import pl.mplywacz.weatherapi.json.MeasurementSerialization;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "measurement")
 @JsonDeserialize(using = MeasurementDeserialization.class)
+@JsonSerialize(using = MeasurementSerialization.class)
 public class Measurement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
