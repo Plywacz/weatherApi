@@ -4,24 +4,24 @@ Author: BeGieU
 Date: 22.05.2019
 */
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import pl.mplywacz.weatherapi.json.MeasurementDeserialization;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "measurement")
+@JsonDeserialize(using = MeasurementDeserialization.class)
 public class Measurement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long measurementId;
 
-    private Double temp;
-    private Double temp_min;
-    private Double humidity;
-    private Double pressure;
-    private Double temp_max;
-
-    private String weatherName;
-    private String weatherDescription;
-    private String weatherIcon;
+    private String temp;
+    private String temp_min;
+    private String humidity;
+    private String pressure;
+    private String temp_max;
 
     @ManyToOne
     @JoinColumn(name = "fk_location")
@@ -38,29 +38,6 @@ public class Measurement {
         this.measurementId = measurementId;
     }
 
-    public String getWeatherName() {
-        return weatherName;
-    }
-
-    public void setWeatherName(String weatherName) {
-        this.weatherName = weatherName;
-    }
-
-    public String getWeatherDescription() {
-        return weatherDescription;
-    }
-
-    public void setWeatherDescription(String weatherDescription) {
-        this.weatherDescription = weatherDescription;
-    }
-
-    public String getWeatherIcon() {
-        return weatherIcon;
-    }
-
-    public void setWeatherIcon(String weatherIcon) {
-        this.weatherIcon = weatherIcon;
-    }
 
     public Location getLocation() {
         return location;
@@ -70,43 +47,43 @@ public class Measurement {
         this.location = location;
     }
 
-    public Double getTemp() {
+    public String getTemp() {
         return temp;
     }
 
-    public void setTemp(Double temp) {
+    public void setTemp(String temp) {
         this.temp = temp;
     }
 
-    public Double getTemp_min() {
+    public String getTemp_min() {
         return temp_min;
     }
 
-    public void setTemp_min(Double temp_min) {
+    public void setTemp_min(String temp_min) {
         this.temp_min = temp_min;
     }
 
-    public Double getHumidity() {
+    public String getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(Double humidity) {
+    public void setHumidity(String humidity) {
         this.humidity = humidity;
     }
 
-    public Double getPressure() {
+    public String getPressure() {
         return pressure;
     }
 
-    public void setPressure(Double pressure) {
+    public void setPressure(String pressure) {
         this.pressure = pressure;
     }
 
-    public Double getTemp_max() {
+    public String getTemp_max() {
         return temp_max;
     }
 
-    public void setTemp_max(Double temp_max) {
+    public void setTemp_max(String temp_max) {
         this.temp_max = temp_max;
     }
 }

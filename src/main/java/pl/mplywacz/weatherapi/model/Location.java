@@ -1,8 +1,8 @@
 package pl.mplywacz.weatherapi.model;
 
 import javax.persistence.*;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /*
 Author: BeGieU
@@ -20,10 +20,11 @@ public class Location {
     private Integer frequency;
 
     @OneToMany(mappedBy = "location",cascade = CascadeType.ALL)
-    private List<Measurement> measurements = new LinkedList<>();
+    private Set<Measurement> measurements = new HashSet<>();
 
     public Location() {
     }
+
 
     public Long getLocationId() {
         return locationId;
@@ -49,11 +50,11 @@ public class Location {
         this.frequency = frequency;
     }
 
-    public List<Measurement> getMeasurements() {
+    public Set<Measurement> getMeasurements() {
         return measurements;
     }
 
-    public void setMeasurements(List<Measurement> measurements) {
+    public void setMeasurements(Set<Measurement> measurements) {
         this.measurements = measurements;
     }
 }
