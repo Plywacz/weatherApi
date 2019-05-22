@@ -42,6 +42,6 @@ public class LocationServiceImpl implements LocationService {
         var savedLocation = locationRepository.save(location);
         measurementRepository.save(measurement);
 
-        return null;
+        return savedLocation;
     }
 }
