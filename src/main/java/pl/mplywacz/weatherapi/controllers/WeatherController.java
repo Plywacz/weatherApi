@@ -10,6 +10,7 @@ import pl.mplywacz.weatherapi.dto.LocationDto;
 import pl.mplywacz.weatherapi.model.Location;
 import pl.mplywacz.weatherapi.services.LocationService;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 @RestController
@@ -24,8 +25,8 @@ public class WeatherController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody Location registerLocation(@RequestBody LocationDto locationDto) throws IOException {
-       return locationService.registerLocation(locationDto);
+    public @ResponseBody Location registerLocation(@Valid @RequestBody LocationDto locationDto) throws IOException {
+        return locationService.registerLocation(locationDto);
     }
 
 

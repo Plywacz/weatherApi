@@ -4,6 +4,9 @@ Author: BeGieU
 Date: 22.05.2019
 */
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
+
 /**
  *
  * <p>
@@ -11,7 +14,10 @@ Date: 22.05.2019
  */
 
 public class LocationDto {
+    @NotEmpty
     private String cityName;
+
+    @Positive
     private Integer frequency;
 
     public LocationDto() {

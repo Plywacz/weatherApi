@@ -19,6 +19,9 @@ public class Location {
     private String cityName;
     private Integer frequency;
 
+    /*mapped by znaczy ze pole location z klasy Measurement przechowuje klucze tej relacji,
+    * jest to tzw dobra praktyka i tak sie robi*/
+
     @OneToMany(mappedBy = "location",cascade = CascadeType.ALL)
     private Set<Measurement> measurements = new HashSet<>();
 

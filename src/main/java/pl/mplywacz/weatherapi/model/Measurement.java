@@ -21,10 +21,12 @@ public class Measurement {
     private Long measurementId;
 
     private String temp;
-    private String temp_min;
+    private String tempMin;
     private String humidity;
     private String pressure;
-    private String temp_max;
+    private String tempMax;
+
+    private String weatherDescription;
 
     @ManyToOne
     @JoinColumn(name = "fk_location")
@@ -58,12 +60,12 @@ public class Measurement {
         this.temp = temp;
     }
 
-    public String getTemp_min() {
-        return temp_min;
+    public String getTempMin() {
+        return tempMin;
     }
 
-    public void setTemp_min(String temp_min) {
-        this.temp_min = temp_min;
+    public void setTempMin(String tempMin) {
+        this.tempMin = tempMin;
     }
 
     public String getHumidity() {
@@ -82,11 +84,19 @@ public class Measurement {
         this.pressure = pressure;
     }
 
-    public String getTemp_max() {
-        return temp_max;
+    public String getTempMax() {
+        return tempMax;
     }
 
-    public void setTemp_max(String temp_max) {
-        this.temp_max = temp_max;
+    public void setTempMax(String tempMax) {
+        this.tempMax = tempMax;
+    }
+
+    public String getWeatherDescription() {
+        return weatherDescription;
+    }
+
+    public void setWeatherDescription(String weatherDescription) {
+        this.weatherDescription = weatherDescription;
     }
 }

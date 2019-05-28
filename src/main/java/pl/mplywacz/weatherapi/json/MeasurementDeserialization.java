@@ -30,12 +30,15 @@ public class MeasurementDeserialization extends StdDeserializer<Measurement> {
         String humidity = (node.get("main").get("humidity")).asText();
         String pressure = (node.get("main").get("pressure")).asText();
 
+        String weatherDesc=node.get("weather").get(0).get("description").asText(); // idk why api sends json with array of weather description it always contains one object
+
         var measurement = new Measurement();
-        measurement.setTemp_min(temp_min);
-        measurement.setTemp_max(temp_max);
+        measurement.setTempMin(temp_min);
+        measurement.setTempMax(temp_max);
         measurement.setTemp(temp);
         measurement.setHumidity(humidity);
         measurement.setPressure(pressure);
+        measurement.setWeatherDescription(weatherDesc);
 
         return measurement;
     }
