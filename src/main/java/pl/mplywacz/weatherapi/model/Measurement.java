@@ -11,6 +11,7 @@ import pl.mplywacz.weatherapi.json.MeasurementSerialization;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "measurement")
@@ -33,7 +34,15 @@ public class Measurement {
     @JoinColumn(name = "fk_location")
     private Location location;
 
-    private Date measurementDate;
+    private Timestamp measurementDate;
+
+    public Timestamp getMeasurementDate() {
+        return measurementDate;
+    }
+
+    public void setMeasurementDate(Timestamp measurementDate) {
+        this.measurementDate = measurementDate;
+    }
 
     public Measurement() {
     }
@@ -103,11 +112,4 @@ public class Measurement {
         this.weatherDescription = weatherDescription;
     }
 
-    public Date getMeasurementDate() {
-        return measurementDate;
-    }
-
-    public void setMeasurementDate(Date measurementDate) {
-        this.measurementDate = measurementDate;
-    }
 }

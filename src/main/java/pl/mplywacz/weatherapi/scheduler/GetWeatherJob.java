@@ -14,12 +14,12 @@ import org.quartz.JobExecutionException;
 import org.springframework.stereotype.Component;
 import pl.mplywacz.weatherapi.model.Location;
 import pl.mplywacz.weatherapi.model.Measurement;
-import pl.mplywacz.weatherapi.repositories.LocationRepository;
 import pl.mplywacz.weatherapi.repositories.MeasurementRepository;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import static pl.mplywacz.weatherapi.services.LocationService.GET_WEATHER_FROM_API;
 
@@ -42,7 +42,7 @@ public class GetWeatherJob implements Job {
             var location = (Location) jobDataMap.get("location");
 
             var measurement = objectMapper.readValue(new URL(GET_WEATHER_FROM_API + location.getCityName()), Measurement.class);
-            measurement.setMeasurementDate(new Date(date.getTime()));
+            measurement.setMeasurementDate(new Timestamp(System.currentTimeMillis()));
 
             measurement.setLocation(location);
             measurementRepository.save(measurement);
