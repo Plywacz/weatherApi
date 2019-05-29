@@ -19,6 +19,7 @@ import pl.mplywacz.weatherapi.repositories.MeasurementRepository;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 
 import static pl.mplywacz.weatherapi.services.LocationService.GET_WEATHER_FROM_API;
 
@@ -26,8 +27,9 @@ import static pl.mplywacz.weatherapi.services.LocationService.GET_WEATHER_FROM_A
 public class GetWeatherJob implements Job {
     private final MeasurementRepository measurementRepository;
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private final java.util.Date date = new java.util.Date();
 
-    public GetWeatherJob( MeasurementRepository measurementRepository) {
+    public GetWeatherJob(MeasurementRepository measurementRepository) {
         this.measurementRepository = measurementRepository;
     }
 
@@ -40,6 +42,7 @@ public class GetWeatherJob implements Job {
             var location = (Location) jobDataMap.get("location");
 
             var measurement = objectMapper.readValue(new URL(GET_WEATHER_FROM_API + location.getCityName()), Measurement.class);
+            measurement.setMeasurementDate(new Date(date.getTime()));
 
             measurement.setLocation(location);
             measurementRepository.save(measurement);

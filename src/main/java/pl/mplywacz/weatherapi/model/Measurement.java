@@ -10,6 +10,7 @@ import pl.mplywacz.weatherapi.json.MeasurementDeserialization;
 import pl.mplywacz.weatherapi.json.MeasurementSerialization;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(name = "measurement")
@@ -31,6 +32,8 @@ public class Measurement {
     @ManyToOne
     @JoinColumn(name = "fk_location")
     private Location location;
+
+    private Date measurementDate;
 
     public Measurement() {
     }
@@ -98,5 +101,13 @@ public class Measurement {
 
     public void setWeatherDescription(String weatherDescription) {
         this.weatherDescription = weatherDescription;
+    }
+
+    public Date getMeasurementDate() {
+        return measurementDate;
+    }
+
+    public void setMeasurementDate(Date measurementDate) {
+        this.measurementDate = measurementDate;
     }
 }

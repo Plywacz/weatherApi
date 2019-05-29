@@ -16,12 +16,14 @@ import pl.mplywacz.weatherapi.scheduler.GetWeatherJob;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 
 @Component
 public class LocationServiceImpl implements LocationService {
     private final LocationRepository locationRepository;
     private final MeasurementRepository measurementRepository;
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private final Date date=new Date();
 
 
     private Scheduler scheduler;
@@ -37,6 +39,7 @@ public class LocationServiceImpl implements LocationService {
     @Override public Location registerLocation(LocationDto locationDto) throws IOException {
         //gets measurement from weather api
         var measurement = objectMapper.readValue(new URL(GET_WEATHER_FROM_API + locationDto.getCityName()), Measurement.class);
+        measurement.setMeasurementDate(new java.sql.Date(date.getTime()));
 
         var location = new Location();
         location.setCityName(locationDto.getCityName());
@@ -50,6 +53,12 @@ public class LocationServiceImpl implements LocationService {
         measurementRepository.save(measurement);
 
         //schedule job
+        scheduleJob(location);
+
+        return savedLocation;
+    }
+
+    private void scheduleJob(Location location) {
         JobDetail jobDetail = createMeasurementJob(location);
         Trigger trigger = createTrigger(jobDetail, location.getFrequency());
         try {
@@ -58,8 +67,6 @@ public class LocationServiceImpl implements LocationService {
         catch (SchedulerException e) {
             e.printStackTrace();
         }
-
-        return savedLocation;
     }
 
     private JobDetail createMeasurementJob(Location location) {

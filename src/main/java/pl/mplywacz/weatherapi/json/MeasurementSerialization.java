@@ -33,6 +33,8 @@ public class MeasurementSerialization extends StdSerializer<Measurement> {
         jgen.writeStringField("humidity", value.getHumidity());
         jgen.writeStringField("pressure", value.getPressure());
         jgen.writeNumberField("ownerLocation",value.getLocation().getLocationId());
+        jgen.writeStringField("Weather description", value.getWeatherDescription());
+        jgen.writeStringField("date: ", value.getMeasurementDate().toString());
 
         jgen.writeEndObject();
     }
