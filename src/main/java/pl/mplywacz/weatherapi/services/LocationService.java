@@ -15,4 +15,5 @@ public interface LocationService {
     Integer DEFAULT_REPEAT_COUNT = 5;
 
     Location registerLocation(LocationDto locationDto) throws IOException;
+     Double getAverageMeasurementValue(Long id, Integer count);
 }

@@ -29,5 +29,11 @@ public class WeatherController {
         return locationService.registerLocation(locationDto);
     }
 
+    @GetMapping("/stat/{id}/{count}")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody Double getAverageTemp(@PathVariable Long id, @PathVariable Integer count) {
+        return locationService.getAverageMeasurementValue(id, count);
+    }
+
 
 }
