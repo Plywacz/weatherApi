@@ -19,6 +19,7 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.TreeSet;
 
 @Component
@@ -102,33 +103,38 @@ public class LocationServiceImpl implements LocationService {
      * @return average value of last count measurements
      */
     public Double getAverageMeasurementValue(Long id, Integer count) {
-        //todo split this code to private methods
         var locationOptional = locationRepository.findById(id);
         if (locationOptional.isEmpty()) {
             throw new IllegalArgumentException("Illegal Argument, entity with given id doesnt exist in db");
         }
         var location = locationOptional.get();
 
-        //sorting hashSet
         var measurements = location.getMeasurements();
         if (measurements.size() < count) {
             throw new IllegalArgumentException("given location has not enough measurements to count average temp with given count");
         }
         var measurementsList = new ArrayList<Measurement>(measurements);
+
+        sortList(measurementsList);
+
+        return countAvg(measurementsList, count);
+    }
+
+    private void sortList(List<Measurement> measurementsList) {
         Collections.sort(measurementsList, (obj1, obj2) -> {
             if (obj1.getMeasurementDate() == null || obj2.getMeasurementDate() == null) {
                 return 0;
             }
             return obj1.getMeasurementDate().compareTo(obj2.getMeasurementDate());
         });
+    }
 
-        //counting average
+    private Double countAvg(List<Measurement> measurementsList, Integer count) {
         var indexOfLastElement = measurementsList.size() - 1;
         var sum = 0.0;
         for (int i = 0; i < count; i++, indexOfLastElement--) {
             sum = sum + Double.parseDouble(measurementsList.get(indexOfLastElement).getTemp());
         }
-
-        return sum/count;
+        return sum / count;
     }
 }
